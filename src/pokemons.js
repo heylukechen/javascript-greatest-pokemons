@@ -105,8 +105,8 @@ function orderAlphabetically(arrayOfPokemon) {
     return 0;
   }
 
-  const nameOnly = clonedArray.map((pokemon)=>{
-    return pokemon.name
+  const nameOnly = clonedArray.map((pokemon) => {
+    return pokemon.name;
   });
 
   function compare(a, b) {
@@ -117,10 +117,20 @@ function orderAlphabetically(arrayOfPokemon) {
 
   const arraySorted = nameOnly.sort(compare);
 
-  if(arraySorted.length >= 20){
-    return arraySorted.splice(0,20);
-  } return arraySorted
-  
+  if (arraySorted.length >= 20) {
+    return arraySorted.slice(0, 20);
+  }
+  return arraySorted;
 }
 
 // Iteration 7: Strong pokemons - return an array of first 15 pokemons, that have just one `weakness`. If there are less that 15, return all of them
+function strongPokemons(arrayOfPokemon) {
+  const clonedArray = Array.from(arrayOfPokemon);
+
+  const strongPokemon = clonedArray.filter((pokemon) => {
+    return pokemon.weaknesses.length === 1;
+  });
+
+  const firstFifteenStrongPokemon = strongPokemon.slice(0, 15);
+  return firstFifteenStrongPokemon;
+}
