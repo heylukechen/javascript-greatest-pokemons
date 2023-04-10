@@ -78,8 +78,14 @@ function getHeavyPokemons(arrayOfPokemon) {
   }
 
   const newArryOfPokemonWithWeight = clonedArray.map((pokemon) => {
-    const weightString = pokemon.weight.split(" ");
-    const weightNumber = Number(weightString[0]);
+    let weightString = "";
+    let weightNumber = 0;
+    if(pokemon.weight){
+      weightString = pokemon.weight.split(" ");
+      weightNumber = Number(weightString[0]);
+    } else {
+      weightNumber = 0;
+    }
     return {
       name: pokemon.name,
       weight: weightNumber,
@@ -98,15 +104,25 @@ function getHeavyPokemons(arrayOfPokemon) {
 }
 
 // Iteration 6: Alphabetic Order - Order by name and print the first 20 names
+
+// I STILL GET THE ERROR OF "Expected 'undefined' to be 'string'." BUT I HAVE ALREAYD TAKEN CARE OF THAT WITH THE CONST CLEANNAME SO I AM SUPER CONFUSED...
 function orderAlphabetically(arrayOfPokemon) {
   const clonedArray = Array.from(arrayOfPokemon);
 
   if (clonedArray.length === 0) {
-    return 0;
+    return null;
   }
 
   const nameOnly = clonedArray.map((pokemon) => {
     return pokemon.name;
+  });
+  
+  const cleanName = nameOnly.map((pokemon)=>{
+    if( typeof pokemon.name === "string"){
+      return pokemon.name 
+    } else if (typeof pokemon.name === "undefined" || pokemon.name === "null" ){
+      return ""
+    }
   });
 
   function compare(a, b) {
@@ -119,8 +135,7 @@ function orderAlphabetically(arrayOfPokemon) {
 
   if (arraySorted.length >= 20) {
     return arraySorted.slice(0, 20);
-  }
-  return arraySorted;
+  } return arraySorted;
 }
 
 // Iteration 7: Strong pokemons - return an array of first 15 pokemons, that have just one `weakness`. If there are less that 15, return all of them
@@ -131,6 +146,10 @@ function strongPokemons(arrayOfPokemon) {
     return pokemon.weaknesses.length === 1;
   });
 
-  const firstFifteenStrongPokemon = strongPokemon.slice(0, 15);
+  const onlyName = strongPokemon.map((pokemon)=>{
+    return pokemon.name
+  });
+
+  const firstFifteenStrongPokemon = onlyName.slice(0, 15);
   return firstFifteenStrongPokemon;
 }
